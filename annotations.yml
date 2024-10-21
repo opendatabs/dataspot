@@ -1,0 +1,399 @@
+# annotations.yml
+##INHALTSVERZEICHNIS##
+#1 - COLLECTION
+#2 - SEMANTIK / GESCHÄFTSOBJEKTMODELL
+#3 - RDM
+#4 - DATENKATALOG
+#5 - WORKFLOW
+#6 - HERKUNFT
+#7 - DEPENDENCY
+#8 - TECHNISCHE DATENMODEllE
+#9 - TRANSFORMATIONSREGELN
+#10 - SYSTEMKATALOG
+
+
+#4 - DATENKATALOG
+#DataCatalog:
+
+
+
+Dataset:
+  #label: Datensatz
+  #ling: s1p1um
+
+#GROUPS
+  groups:
+    BSCHR:
+      label: Weitere Informationen
+      order: 10
+      icon: memo-pad
+    KONTAKT:
+      label: Kontaktinformationen
+      order: 20
+      icon: address-book
+    AUFBEW:
+      label: Archivierung und Verfügbarkeit
+      order: 30
+      icon: box-archive
+    RICHTL:
+      label: Richtlinien
+      order: 40
+      icon: shield-halved
+    GEO:
+      label: Geo-Daten-Felder
+      order: 50
+      icon: location-dot
+
+#PROPERTIES DATASET
+
+
+  properties:
+    label:
+      label: Titel
+      title: Name des mit den Metadaten beschriebenen Produkt
+
+    description:
+      title: Zusammenfassung des Inhalts der Ressource
+    title:
+      label: Kurzbeschreibung
+      title: Kurzbeschreibung des Datensatzes. Diese wird in der Übersicht angezeigt und unterstützt die Auffindbarkeit, denn die Suchfunktion sucht auch in diesem Metadatenfeld.
+    tags:
+      label: Schlüsselwörter
+      title: Schlüsselwörter, die den Inhalt beschreiben (können für die Suche genutzt werden) (GEMET, Weitere)
+
+
+    stereotype:
+      label: Datensatztyp
+      title: Der Datensatztyp unterstützt verschiedene Anwendungsfälle und bestimmt damit den Umfang der Metadatenfelder.
+      literals:
+        #BDS:
+         # label: Basisdatensatz
+          #icon: table-list
+        ## Definition GEO Stereotyp
+        GEO:
+          label: Geo-Datensatz
+          icon: solid-location-dot
+
+
+          customProperties:
+          #GROUP WEITERE GEO INFOS
+            AUSDBESCHR:
+              label: Ausdehnung Beschreibung
+              title: Beschreibung der räumlichen Ausdehnung des Objektes (Kanton Basel-Stadt, Gemeinde Riehen, Gemeinde Bettingen, Gemeinde Basel, Grossraum Basel,…)
+              baseType: STRING
+              group: GEO
+              cardinality: MANY
+              order: 10
+            BBOX:
+              label: Ausdehnung BoundingBox
+              title:
+              baseType: STRING
+              group: GEO
+              order: 20
+            GEOCAT:
+              label: Geokategorie
+              title: Hauptthema des Datenbestandes nach Geokategorien (eCH-166)
+              literals:
+                "001":
+                  label: Basiskarten
+                "002":
+                  label: Bodenbedeckung
+                "003":
+                  label: Bilddaten
+                "004":
+                  label: Basiskarten
+                "005":
+                  label: Landschaftsmodelle
+                "006":
+                  label: Bodenbedeckung
+                "007":
+                  label: Bodennutzung
+                "008":
+                  label: Luft und Satellitenbilder
+                "009":
+                  label: Ortsangaben
+                "010":
+                  label: Referenzsysteme
+                "011":
+                  label: Höhen
+                "012":
+                  label: Politische und administrative Grenzen
+            GEOID:
+              label: Geobasisdaten ID
+              title: ID der Geobasisdaten im Geobasisdatenkatalog
+              baseType: STRING
+              group: GEO
+              order: 30
+            GEOCATID:
+              label: Geocat ID
+              title: Eindeutige Identifikation der Metadaten in Geocat
+              baseType: STRING
+              group: GEO
+              order: 40
+            OEREB:
+              label: OEREB
+              title: Zeigen die Daten öffentlich-rechtliche Eigentumsbeschränkungen (ja-nein)
+              baseType: BOOLEAN
+              group: GEO
+              order: 50
+            DMLINK:
+              label: Darstellungsmodell Link
+              title: Link auf QGIS-Darstellungsprojekt-Datei
+              baseType: TEXT
+              group: GEO
+              order: 60
+            DDLINK:
+              label: Darstellungsdienst Link
+              title: Angabe der WMS-Ebene(n) und/oder WMTS-Ebene(n) für die Darstellung der Daten
+              baseType: TEXT
+              group: GEO
+              order: 70
+            POLY:
+              label: Ausdehnung Polygon
+              title: Beschreibung der räumlichen Ausdehnung des Objektes anhand eines Polygons
+              baseType: TEXT
+              group: GEO
+              order: 80
+            FGI:
+              label: Datensatzkürzel FGI
+              title: Kürzel/ID des Datensatzes gemäss FGI
+              baseType: STRING
+              group: GEO
+              order: 90
+            SPRACHE:
+              label: Sprache
+              title: Sprache die im Datenbestand verwendet wird
+              group: GEO
+              order: 90
+              literals:
+               "DE":
+                 label: Deutsch
+               "FR":
+                 label: Französisch
+               "IT":
+                 label: Italienisch
+            ERSTDAT:
+              label: Erstellungs-Datum
+              title: Datum der Erfassung der Daten (Digitalisierungsabschluss des Geodatensatzes)
+              baseType: DATE
+              group: GEO
+              order: 100
+            DATHER:
+              label: Beschreibung der Datenherkunft
+              title: Allgemeine Erklärung des Datenerstellers über die Abstammung des Datenbestands
+              baseType: TEXT
+              group: GEO
+              order: 110
+
+
+        ## Definition OGD Stereotyp
+        # OGD:
+          # label: OGD-Datensatz
+          # icon: globe
+
+  customProperties:
+    KORG:
+      label: Kontakt Organisation
+      title:  Organisationseinheit, welche für die Publikation der Daten verantwortlich ist (Departement + Dienststelle)
+      baseType: STRING
+      group: KONTAKT
+      order: 10
+    KMAIL:
+      label: Kontakt E-Mail
+      title: E-Mail Adresse, der für die Publikation der Daten verantwortlichen Stelle
+      baseType: STRING
+      group: KONTAKT
+      order: 20
+    KADRESSE:
+      label: Kontakt Adresse
+      title:  Adresse der Organisationseinheit, welche für die Publikation der Daten verantwortlich ist
+      baseType: STRING
+      group: KONTAKT
+      order: 30
+    KTEL:
+      label: Kontakt Telefon
+      title:  Telefon der Organisationseinheit, welche für die Publikation der Daten verantwortlich ist
+      baseType: STRING
+      group: KONTAKT
+      order: 40
+    KURL:
+      label: Kontakt URL
+      title:  Webseite der Organisationseinheit, welche für die Publikation der Daten verantwortlich ist
+      baseType: STRING
+      group: KONTAKT
+      order: 50
+
+    AWUERDIG:
+      label: Archivwürdigkeit
+      title:  Ist der Datensatz archivwürdig?
+      baseType: BOOLEAN
+      group: AUFBEW
+      order: 10
+    AGRUND:
+      label: Archivierung Begründung
+      title:  Begründung der Archivwürdigkeit
+      baseType: TEXT
+      group: AUFBEW
+      order: 20
+    AINT:
+      label: Archivierungsintervall
+      title:  Kadenz Zeitstandbildung des Datenbestandes
+      baseType: TEXT
+      group: AUFBEW
+      order: 30
+    NVERFUG:
+      label: Nachhaltige Verfügbarkeit
+      title:  Ist der Datensatz nachhaltig verfügbar / historisiert?
+      baseType: BOOLEAN
+      group: AUFBEW
+      order: 40
+    NFRIST:
+      label: Aufbewahrungsfrist Nachhaltige Verfügbarkeit
+      title:  Entscheid Aufbewahrungsdauer in Jahren (Die Frist beginnt mit dem Erstellungsdatum)
+      baseType: STRING
+      group: AUFBEW
+      order: 50
+    INTNACHVER:
+      label: Zeitintervall Nachhaltige Verfügbarkeit
+      title: Kadenz Zeitstandbildung des Datenbestandes in der Nachhaltigen Verfügbarkeit
+      baseType: TEXT
+      group: GEO
+      order: 51
+    NGRUND:
+      label: Begründung der Aufbewahrungsfrist
+      title:  Begründung und Bemerkungen zur Aufbewahrungsfrist
+      baseType: TEXT
+      group: AUFBEW
+      order: 60
+    DSCHUTZ:
+      label: Datenschutz
+      title: Sind in den Daten Personendaten von natürlichen oder juristischen Personen enthalten?
+      baseType: BOOLEAN
+      group: RICHTL
+      order: 10
+    NRECHT:
+      label: Nutzungslizenz / -rechte
+      title: Z.B. CCBY
+      group: RICHTL
+      order: 20
+      literals:
+        "001":
+          label: CCBY
+        "002":
+          label: xy
+    NBED:
+      label: Nutzungsbedingungen
+      title: Beschreibung von zusätzlichen Nutzungsbedingungen , bzw. Link auf Nutzungsbedinungen?
+      baseType: TEXT
+      group: RICHTL
+      order: 30
+    NEINSCHRANK:
+      label: Nutzungseinschränkungen (nicht rechtlich)
+      title: Beschreibung von Einschränkungen, welchen für die Nutzung der Daten besteht. (z.B. aufgrund Qualität der Daten)
+      baseType: TEXT
+      group: RICHTL
+      order: 40
+    SCHUTZST:
+      label: Schutzstufe
+      title: Welcher Schutzstufe sind die Daten zugehörig?
+      group: RICHTL
+      order: 50
+      literals:
+        "001":
+          label: Grundschutz
+        "002":
+          label: Erhöhter Schutz
+        "003":
+          label: Vertraulich
+        "004":
+          label: Geheim
+    THEMA:
+      label: Thema
+      order: 60
+      literals:
+        "001":
+          label: Politische und Administrative Grenzen
+
+    NUTZEINSCHR:
+      label: Nutzungseinschränkungen (rechtlich)
+      order: 70
+      literals:
+        "001":
+          label: Quellenangabe erforderlich
+
+    LINK:
+      label: Link auf Publikationsseite
+      order: 80
+      baseType: TEXT
+
+    PUBDATE:
+      label: Publikations-Datum
+      order: 90
+      baseType: DATE
+
+    CHANGEDATE:
+      label: Überarbeitungs-Datum
+      order: 110
+      baseType: DATE
+
+    STATUS:
+      label: Bearbeitungsstatus
+      order: 120
+      literals:
+        "001":
+          label: komplett
+        "002":
+          label: historisches Archiv
+        "003":
+          label: veraltet
+        "004":
+          label: laufend
+        "005":
+          label: geplant
+        "006":
+          label: notwendig
+        "007":
+          label: in Entwicklung
+
+    NFH:
+      label: Nachführungshäufigkeit
+      order: 130
+      literals:
+        "001":
+          label: Täglich
+        "002":
+          label: wöchentlich
+        "003":
+          label: monatlich
+        "004":
+          label: wenn nötig
+
+    ZGB:
+      label: Zugangsberechtigungsstufe
+      order: 140
+      literals:
+        "001":
+          label: A
+        "002":
+          label: B1
+        "003":
+          label: B2
+        "004":
+          label: B3
+        "005":
+          label: C
+
+    INFO:
+      label: Weitere Informationen
+      group: BSCHR
+      order: 150
+      baseType: TEXT
+
+    ZBNV:
+      label: Zeitstandbildung Nachhaltige Verfügbarkeit
+      order: 160
+      literals:
+        "001":
+          label: Ja
+        "002":
+          label: Nein

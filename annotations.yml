@@ -21,7 +21,6 @@ Dataset:
   #label: Datensatz
   #ling: s1p1um
 
-#GROUPS
   groups:
     BSCHR:
       label: Weitere Informationen
@@ -39,19 +38,19 @@ Dataset:
       label: Richtlinien
       order: 40
       icon: shield-halved
-    GEO:
-      label: Geo-Daten-Felder
+    OGD:
+      label: OGD
       order: 50
+      icon: globe
+    GEO:
+      label: Geodaten
+      order: 60
       icon: location-dot
-
-#PROPERTIES DATASET
-
 
   properties:
     label:
       label: Titel
       title: Name des mit den Metadaten beschriebenen Produkt
-
     description:
       title: Zusammenfassung des Inhalts der Ressource
     title:
@@ -66,14 +65,43 @@ Dataset:
       label: Datensatztyp
       title: Der Datensatztyp unterstützt verschiedene Anwendungsfälle und bestimmt damit den Umfang der Metadatenfelder.
       literals:
-        #BDS:
-         # label: Basisdatensatz
-          #icon: table-list
-        ## Definition GEO Stereotyp
-        GEO:
-          label: Geo-Datensatz
-          icon: solid-location-dot
+        DEFAULT:
+         label: Default
+         icon: table-list
 
+        OGD:
+          label: OGD Datensatz
+          icon: globe
+
+          customProperties:
+            ACCRUAL_PERIODICITY:
+              label: Anhäufungs-Periodizität
+              title: The frequency at which dataset is published
+              group: OGD
+              cardinality: ONE
+              order: 10
+              literals:
+                "http://publications.europa.eu/resource/authority/frequency/10MIN":
+                  label: 10 Minuten
+                "http://publications.europa.eu/resource/authority/frequency/UPDATE_CONT":
+                  label: kontinuierlich
+                "http://publications.europa.eu/resource/authority/frequency/QUARTERLY":
+                  label: Quartal
+                "http://publications.europa.eu/resource/authority/frequency/TRIENNIAL":
+                  label: Trimester
+            LICENSE:
+              label: Lizenz
+              title: "The terms of use indicates for what purpose and in what context the data of a distribution can be used: for commercial or for non commercial purposes. Does it need to be referenced, when it is used? Must permission be obtained for commercial use. These conditions are included in the terms of use statements."
+              baseType: STRING
+              group: OGD
+              cardinality: MANY
+              order: 20
+
+
+
+        GEO:
+          label: Geodatensatz
+          icon: solid-location-dot
 
           customProperties:
           #GROUP WEITERE GEO INFOS
@@ -186,214 +214,210 @@ Dataset:
               order: 110
 
 
-        ## Definition OGD Stereotyp
-        # OGD:
-          # label: OGD-Datensatz
-          # icon: globe
 
-  customProperties:
-    KORG:
-      label: Kontakt Organisation
-      title:  Organisationseinheit, welche für die Publikation der Daten verantwortlich ist (Departement + Dienststelle)
-      baseType: STRING
-      group: KONTAKT
-      order: 10
-    KMAIL:
-      label: Kontakt E-Mail
-      title: E-Mail Adresse, der für die Publikation der Daten verantwortlichen Stelle
-      baseType: STRING
-      group: KONTAKT
-      order: 20
-    KADRESSE:
-      label: Kontakt Adresse
-      title:  Adresse der Organisationseinheit, welche für die Publikation der Daten verantwortlich ist
-      baseType: STRING
-      group: KONTAKT
-      order: 30
-    KTEL:
-      label: Kontakt Telefon
-      title:  Telefon der Organisationseinheit, welche für die Publikation der Daten verantwortlich ist
-      baseType: STRING
-      group: KONTAKT
-      order: 40
-    KURL:
-      label: Kontakt URL
-      title:  Webseite der Organisationseinheit, welche für die Publikation der Daten verantwortlich ist
-      baseType: STRING
-      group: KONTAKT
-      order: 50
-
-    AWUERDIG:
-      label: Archivwürdigkeit
-      title:  Ist der Datensatz archivwürdig?
-      baseType: BOOLEAN
-      group: AUFBEW
-      order: 10
-    AGRUND:
-      label: Archivierung Begründung
-      title:  Begründung der Archivwürdigkeit
-      baseType: TEXT
-      group: AUFBEW
-      order: 20
-    AINT:
-      label: Archivierungsintervall
-      title:  Kadenz Zeitstandbildung des Datenbestandes
-      baseType: TEXT
-      group: AUFBEW
-      order: 30
-    NVERFUG:
-      label: Nachhaltige Verfügbarkeit
-      title:  Ist der Datensatz nachhaltig verfügbar / historisiert?
-      baseType: BOOLEAN
-      group: AUFBEW
-      order: 40
-    NFRIST:
-      label: Aufbewahrungsfrist Nachhaltige Verfügbarkeit
-      title:  Entscheid Aufbewahrungsdauer in Jahren (Die Frist beginnt mit dem Erstellungsdatum)
-      baseType: STRING
-      group: AUFBEW
-      order: 50
-    INTNACHVER:
-      label: Zeitintervall Nachhaltige Verfügbarkeit
-      title: Kadenz Zeitstandbildung des Datenbestandes in der Nachhaltigen Verfügbarkeit
-      baseType: TEXT
-      group: GEO
-      order: 51
-    NGRUND:
-      label: Begründung der Aufbewahrungsfrist
-      title:  Begründung und Bemerkungen zur Aufbewahrungsfrist
-      baseType: TEXT
-      group: AUFBEW
-      order: 60
-    DSCHUTZ:
-      label: Datenschutz
-      title: Sind in den Daten Personendaten von natürlichen oder juristischen Personen enthalten?
-      baseType: BOOLEAN
-      group: RICHTL
-      order: 10
-    NRECHT:
-      label: Nutzungslizenz / -rechte
-      title: Z.B. CCBY
-      group: RICHTL
-      order: 20
-      literals:
-        "001":
-          label: CCBY
-        "002":
-          label: xy
-    NBED:
-      label: Nutzungsbedingungen
-      title: Beschreibung von zusätzlichen Nutzungsbedingungen , bzw. Link auf Nutzungsbedinungen?
-      baseType: TEXT
-      group: RICHTL
-      order: 30
-    NEINSCHRANK:
-      label: Nutzungseinschränkungen (nicht rechtlich)
-      title: Beschreibung von Einschränkungen, welchen für die Nutzung der Daten besteht. (z.B. aufgrund Qualität der Daten)
-      baseType: TEXT
-      group: RICHTL
-      order: 40
-    SCHUTZST:
-      label: Schutzstufe
-      title: Welcher Schutzstufe sind die Daten zugehörig?
-      group: RICHTL
-      order: 50
-      literals:
-        "001":
-          label: Grundschutz
-        "002":
-          label: Erhöhter Schutz
-        "003":
-          label: Vertraulich
-        "004":
-          label: Geheim
-    THEMA:
-      label: Thema
-      order: 60
-      literals:
-        "001":
-          label: Politische und Administrative Grenzen
-
-    NUTZEINSCHR:
-      label: Nutzungseinschränkungen (rechtlich)
-      order: 70
-      literals:
-        "001":
-          label: Quellenangabe erforderlich
-
-    LINK:
-      label: Link auf Publikationsseite
-      order: 80
-      baseType: TEXT
-
-    PUBDATE:
-      label: Publikations-Datum
-      order: 90
-      baseType: DATE
-
-    CHANGEDATE:
-      label: Überarbeitungs-Datum
-      order: 110
-      baseType: DATE
-
-    STATUS:
-      label: Bearbeitungsstatus
-      order: 120
-      literals:
-        "001":
-          label: komplett
-        "002":
-          label: historisches Archiv
-        "003":
-          label: veraltet
-        "004":
-          label: laufend
-        "005":
-          label: geplant
-        "006":
-          label: notwendig
-        "007":
-          label: in Entwicklung
-
-    NFH:
-      label: Nachführungshäufigkeit
-      order: 130
-      literals:
-        "001":
-          label: Täglich
-        "002":
-          label: wöchentlich
-        "003":
-          label: monatlich
-        "004":
-          label: wenn nötig
-
-    ZGB:
-      label: Zugangsberechtigungsstufe
-      order: 140
-      literals:
-        "001":
-          label: A
-        "002":
-          label: B1
-        "003":
-          label: B2
-        "004":
-          label: B3
-        "005":
-          label: C
-
-    INFO:
-      label: Weitere Informationen
-      group: BSCHR
-      order: 150
-      baseType: TEXT
-
-    ZBNV:
-      label: Zeitstandbildung Nachhaltige Verfügbarkeit
-      order: 160
-      literals:
-        "001":
-          label: Ja
-        "002":
-          label: Nein
+#  customProperties:
+#    KORG:
+#      label: Kontakt Organisation
+#      title:  Organisationseinheit, welche für die Publikation der Daten verantwortlich ist (Departement + Dienststelle)
+#      baseType: STRING
+#      group: KONTAKT
+#      order: 10
+#    KMAIL:
+#      label: Kontakt E-Mail
+#      title: E-Mail Adresse, der für die Publikation der Daten verantwortlichen Stelle
+#      baseType: STRING
+#      group: KONTAKT
+#      order: 20
+#    KADRESSE:
+#      label: Kontakt Adresse
+#      title:  Adresse der Organisationseinheit, welche für die Publikation der Daten verantwortlich ist
+#      baseType: STRING
+#      group: KONTAKT
+#      order: 30
+#    KTEL:
+#      label: Kontakt Telefon
+#      title:  Telefon der Organisationseinheit, welche für die Publikation der Daten verantwortlich ist
+#      baseType: STRING
+#      group: KONTAKT
+#      order: 40
+#    KURL:
+#      label: Kontakt URL
+#      title:  Webseite der Organisationseinheit, welche für die Publikation der Daten verantwortlich ist
+#      baseType: STRING
+#      group: KONTAKT
+#      order: 50
+#
+#    AWUERDIG:
+#      label: Archivwürdigkeit
+#      title:  Ist der Datensatz archivwürdig?
+#      baseType: BOOLEAN
+#      group: AUFBEW
+#      order: 10
+#    AGRUND:
+#      label: Archivierung Begründung
+#      title:  Begründung der Archivwürdigkeit
+#      baseType: TEXT
+#      group: AUFBEW
+#      order: 20
+#    AINT:
+#      label: Archivierungsintervall
+#      title:  Kadenz Zeitstandbildung des Datenbestandes
+#      baseType: TEXT
+#      group: AUFBEW
+#      order: 30
+#    NVERFUG:
+#      label: Nachhaltige Verfügbarkeit
+#      title:  Ist der Datensatz nachhaltig verfügbar / historisiert?
+#      baseType: BOOLEAN
+#      group: AUFBEW
+#      order: 40
+#    NFRIST:
+#      label: Aufbewahrungsfrist Nachhaltige Verfügbarkeit
+#      title:  Entscheid Aufbewahrungsdauer in Jahren (Die Frist beginnt mit dem Erstellungsdatum)
+#      baseType: STRING
+#      group: AUFBEW
+#      order: 50
+#    INTNACHVER:
+#      label: Zeitintervall Nachhaltige Verfügbarkeit
+#      title: Kadenz Zeitstandbildung des Datenbestandes in der Nachhaltigen Verfügbarkeit
+#      baseType: TEXT
+#      group: GEO
+#      order: 51
+#    NGRUND:
+#      label: Begründung der Aufbewahrungsfrist
+#      title:  Begründung und Bemerkungen zur Aufbewahrungsfrist
+#      baseType: TEXT
+#      group: AUFBEW
+#      order: 60
+#    DSCHUTZ:
+#      label: Datenschutz
+#      title: Sind in den Daten Personendaten von natürlichen oder juristischen Personen enthalten?
+#      baseType: BOOLEAN
+#      group: RICHTL
+#      order: 10
+#    NRECHT:
+#      label: Nutzungslizenz / -rechte
+#      title: Z.B. CCBY
+#      group: RICHTL
+#      order: 20
+#      literals:
+#        "001":
+#          label: CCBY
+#        "002":
+#          label: xy
+#    NBED:
+#      label: Nutzungsbedingungen
+#      title: Beschreibung von zusätzlichen Nutzungsbedingungen , bzw. Link auf Nutzungsbedinungen?
+#      baseType: TEXT
+#      group: RICHTL
+#      order: 30
+#    NEINSCHRANK:
+#      label: Nutzungseinschränkungen (nicht rechtlich)
+#      title: Beschreibung von Einschränkungen, welchen für die Nutzung der Daten besteht. (z.B. aufgrund Qualität der Daten)
+#      baseType: TEXT
+#      group: RICHTL
+#      order: 40
+#    SCHUTZST:
+#      label: Schutzstufe
+#      title: Welcher Schutzstufe sind die Daten zugehörig?
+#      group: RICHTL
+#      order: 50
+#      literals:
+#        "001":
+#          label: Grundschutz
+#        "002":
+#          label: Erhöhter Schutz
+#        "003":
+#          label: Vertraulich
+#        "004":
+#          label: Geheim
+#    THEMA:
+#      label: Thema
+#      order: 60
+#      literals:
+#        "001":
+#          label: Politische und Administrative Grenzen
+#
+#    NUTZEINSCHR:
+#      label: Nutzungseinschränkungen (rechtlich)
+#      order: 70
+#      literals:
+#        "001":
+#          label: Quellenangabe erforderlich
+#
+#    LINK:
+#      label: Link auf Publikationsseite
+#      order: 80
+#      baseType: TEXT
+#
+#    PUBDATE:
+#      label: Publikations-Datum
+#      order: 90
+#      baseType: DATE
+#
+#    CHANGEDATE:
+#      label: Überarbeitungs-Datum
+#      order: 110
+#      baseType: DATE
+#
+#    STATUS:
+#      label: Bearbeitungsstatus
+#      order: 120
+#      literals:
+#        "001":
+#          label: komplett
+#        "002":
+#          label: historisches Archiv
+#        "003":
+#          label: veraltet
+#        "004":
+#          label: laufend
+#        "005":
+#          label: geplant
+#        "006":
+#          label: notwendig
+#        "007":
+#          label: in Entwicklung
+#
+#    NFH:
+#      label: Nachführungshäufigkeit
+#      order: 130
+#      literals:
+#        "001":
+#          label: Täglich
+#        "002":
+#          label: wöchentlich
+#        "003":
+#          label: monatlich
+#        "004":
+#          label: wenn nötig
+#
+#    ZGB:
+#      label: Zugangsberechtigungsstufe
+#      order: 140
+#      literals:
+#        "001":
+#          label: A
+#        "002":
+#          label: B1
+#        "003":
+#          label: B2
+#        "004":
+#          label: B3
+#        "005":
+#          label: C
+#
+#    INFO:
+#      label: Weitere Informationen
+#      group: BSCHR
+#      order: 150
+#      baseType: TEXT
+#
+#    ZBNV:
+#      label: Zeitstandbildung Nachhaltige Verfügbarkeit
+#      order: 160
+#      literals:
+#        "001":
+#          label: Ja
+#        "002":
+#          label: Nein

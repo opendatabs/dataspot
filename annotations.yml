@@ -5,7 +5,7 @@
 #3 - RDM
 #4 - DATENKATALOG
 #5 - WORKFLOW
-#6 - HERKUNFT
+#6 - HERKUNFT 
 #7 - DEPENDENCY
 #8 - TECHNISCHE DATENMODEllE
 #9 - TRANSFORMATIONSREGELN
@@ -97,7 +97,9 @@ Dataset:
               cardinality: MANY
               order: 20
 
-
+        GEOMODEL: 
+          label: Kantonales Geodatenmodell
+          icon: solid-earth-americas
 
         GEO:
           label: Geodatensatz
